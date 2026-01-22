@@ -29,7 +29,7 @@
 <!--	Newly added for Packaging and deployment-->
 	<packaging>jar</packaging>
 	<properties>
-		<java.version>25</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
