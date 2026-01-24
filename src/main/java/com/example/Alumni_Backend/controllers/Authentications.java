@@ -4,8 +4,10 @@ import com.example.Alumni_Backend.DTO.JWTAuthenticationResponse;
 import com.example.Alumni_Backend.DTO.RefreshTokenRequest;
 import com.example.Alumni_Backend.DTO.SigninRequest;
 import com.example.Alumni_Backend.DTO.SignupRequest;
+import com.example.Alumni_Backend.models.Jobs;
 import com.example.Alumni_Backend.models.User;
 import com.example.Alumni_Backend.services.AuthenticationService;
+import com.example.Alumni_Backend.services.JOBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,8 @@ public class Authentications {
 
     @Autowired
    private AuthenticationService authenticationService;
+    @Autowired
+    private JOBService jobService;
 
     @PostMapping("/staffsignup")
     public ResponseEntity<User>  staffsignup(@RequestBody SignupRequest signupRequest){
@@ -52,5 +56,13 @@ public class Authentications {
         return authenticationService.sendEmailUpdates();
     }
 
+    @GetMapping("/jobsList")
+    public List<Jobs> getALlJobs(){
+        return jobService.getJobsData();
+    }
 
+    @GetMapping("/job{id}")
+    public Jobs getJob(@PathVariable Long id){
+        return jobService.getJobById(id);
+    }
 }
