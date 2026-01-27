@@ -24,4 +24,8 @@ public class JobsController {
     public List<Jobs> findallJobs(){
         return jobService.getJobsData();
     }
+    @GetMapping("/job/{id}")
+    public Jobs findJobById(@PathVariable Long id){
+        return jobService.getJobById(id);
+    }
 }

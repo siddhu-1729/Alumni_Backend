@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+//File to handle the events in the application
+
+
 @Service
 public class EventServiceImpl implements EventService {
 

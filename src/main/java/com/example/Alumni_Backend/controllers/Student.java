@@ -1,6 +1,8 @@
 package com.example.Alumni_Backend.controllers;
 
 //import com.example.Alumni_Backend.DTO.StudentProfileRequest;
+import com.example.Alumni_Backend.DTO.ArticleRequest;
+import com.example.Alumni_Backend.models.SuccessStories;
 import com.example.Alumni_Backend.models.User;
 import com.example.Alumni_Backend.services.Profiles;
 import com.example.Alumni_Backend.services.UserService;
@@ -40,4 +42,9 @@ public class Student {
 //    public StudentProfileRequest studentProfileRequest(){
 //        return userService.
 //    }
+
+    @PostMapping("/share_story")
+    public SuccessStories postStory(@RequestBody ArticleRequest articleRequest){
+        return  userService.successStories(articleRequest);
+    }
 }

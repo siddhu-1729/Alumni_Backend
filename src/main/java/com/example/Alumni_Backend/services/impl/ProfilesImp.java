@@ -6,6 +6,8 @@ import com.example.Alumni_Backend.services.Profiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+//to get all profiles of the users from the database
+
 @Service
 public class ProfilesImp implements Profiles {
     @Autowired

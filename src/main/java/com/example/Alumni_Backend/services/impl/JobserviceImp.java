@@ -5,6 +5,7 @@ import com.example.Alumni_Backend.models.Jobs;
 import com.example.Alumni_Backend.repository.JOBsRepo;
 import com.example.Alumni_Backend.services.JOBService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +35,6 @@ public class JobserviceImp implements JOBService {
     }
 
     public Jobs getJobById(Long id){
-        return joBsRepo.getReferenceById(id);
+        return joBsRepo.findById(id).orElseThrow(()->new UsernameNotFoundException("Job Details not Found"));
     }
 }

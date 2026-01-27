@@ -9,5 +9,4 @@ public interface CrudService {
      ResponseEntity<?> delAlumni(Long id);
      ResponseEntity<?> delStudent(Long id);
      ResponseEntity<?> delStaff(Long id);
-     Events addEvent(Events event);
 }
