@@ -1,9 +1,11 @@
 package com.example.Alumni_Backend.controllers;
 
+import com.example.Alumni_Backend.DTO.EventRequest;
 import com.example.Alumni_Backend.DTO.SignupRequest;
 import com.example.Alumni_Backend.models.Events;
 import com.example.Alumni_Backend.models.User;
 import com.example.Alumni_Backend.services.CrudService;
+import com.example.Alumni_Backend.services.EventService;
 import com.example.Alumni_Backend.services.Profiles;
 import com.example.Alumni_Backend.services.UserService;
 import jakarta.transaction.Transactional;
@@ -18,7 +20,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/admin")
 public class Admin {
-
+    @Autowired
+    private EventService eventService;
     @Autowired
     CrudService crudService;
     @Autowired
@@ -58,8 +61,8 @@ public class Admin {
 
     // Adding events
     @PostMapping("/addEvent")
-    public Events addEvent(@RequestBody Events event){
-        return crudService.addEvent(event);
+    public Events addEvent(@RequestBody EventRequest event){
+        return eventService.addEvent(event);
     }
 
     //Adding users (staff,alumni ,student)

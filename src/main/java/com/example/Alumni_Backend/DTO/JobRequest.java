@@ -2,7 +2,7 @@ package com.example.Alumni_Backend.DTO;
 
 public class JobRequest {
 
-    private String jobtitile;
+    private String jobtitle;
     private String company;
     private String location;
     private String jobtype;
@@ -14,12 +14,12 @@ public class JobRequest {
     private String requiredskills;
     private String email;
 
-    public String getJobtitile() {
-        return jobtitile;
+    public String getJobtitle() {
+        return jobtitle;
     }
 
-    public void setJobtitile(String jobtitile) {
-        this.jobtitile = jobtitile;
+    public void setJobtitle(String jobtitle) {
+        this.jobtitle = jobtitle;
     }
 
     public String getCompany() {

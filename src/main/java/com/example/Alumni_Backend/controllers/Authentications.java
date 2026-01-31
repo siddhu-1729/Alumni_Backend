@@ -56,13 +56,13 @@ public class Authentications {
         return authenticationService.sendEmailUpdates();
     }
 
-    @GetMapping("/jobsList")
-    public List<Jobs> getALlJobs(){
-        return jobService.getJobsData();
-    }
-
-    @GetMapping("/job{id}")
-    public Jobs getJob(@PathVariable Long id){
-        return jobService.getJobById(id);
-    }
+//    @GetMapping("/jobsList")
+//    public List<Jobs> getALlJobs(){
+//        return jobService.getJobsData();
+//    }
+//
+//    @GetMapping("/job{id}")
+//    public Jobs getJob(@PathVariable Long id){
+//        return jobService.getJobById(id);
+//    }
 }

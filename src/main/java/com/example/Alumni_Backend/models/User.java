@@ -41,7 +41,27 @@ public class User implements UserDetails {
 
     private String branch;
 
+    private String github;
+
+    private String linkedIn;
+
     private Role role;
+
+    public String getGithub() {
+        return github;
+    }
+
+    public void setGithub(String github) {
+        this.github = github;
+    }
+
+    public String getLinkedIn() {
+        return linkedIn;
+    }
+
+    public void setLinkedIn(String linkedIn) {
+        this.linkedIn = linkedIn;
+    }
 
     public String getBranch() {
         return branch;

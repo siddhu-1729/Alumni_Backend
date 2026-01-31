@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/Jobs")
+@RequestMapping("api/v1")
 public class JobsController {
 
     @Autowired
     private JOBService jobService;
 
-    @PostMapping("/addjob")
+    @PostMapping({"/alumni/add_job" , "/staff/add_job" ,"/admin/add_job"})
     public Jobs addJob(@RequestBody JobRequest jobRequest){
         return jobService.addJob(jobRequest);
     }
 
-    @GetMapping("/")
+    @GetMapping({"/alumni/jobs" ,"/student/internships"})
     public List<Jobs> findallJobs(){
         return jobService.getJobsData();
     }

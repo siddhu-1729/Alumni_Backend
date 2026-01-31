@@ -18,7 +18,7 @@ public class JobserviceImp implements JOBService {
 
     public Jobs addJob(JobRequest jobRequest){
         Jobs job=new Jobs();
-         job.setJobtitile(jobRequest.getJobtitile());
+         job.setJobtitle(jobRequest.getJobtitle());
          job.setJobdescription(jobRequest.getJobdescription());
          job.setCompany(jobRequest.getCompany());
          job.setJobtype(jobRequest.getJobtype());
@@ -27,6 +27,7 @@ public class JobserviceImp implements JOBService {
          job.setResponsibilities(jobRequest.getResponsibilities());
          job.setSalary_range(jobRequest.getSalary_range());
          job.setLocation(jobRequest.getLocation());
+         job.setBenefits(jobRequest.getBenefits());
          return joBsRepo.save(job);
     }
 

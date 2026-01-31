@@ -70,6 +70,8 @@ public class AuthenticationServiceImp implements AuthenticationService {
         user.setInterests(signupRequest.getInterests());
         user.setBranch(signupRequest.getBranch());
         user.setFullname(signupRequest.getFullname());
+        user.setLinkedIn(signupRequest.getLinkedIn());
+        user.setGithub(signupRequest.getGithub());
         return userRepo.save(user);
     }
 

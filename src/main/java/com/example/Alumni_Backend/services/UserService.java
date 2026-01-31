@@ -19,6 +19,7 @@ public interface UserService{
     List<User> getAlumni();
     List<User> getStudent();
     List<User> getStaff();
-
+     User getById(Long id);
     SuccessStories successStories(ArticleRequest articleRequest);
+    List<SuccessStories> getStories();
 }

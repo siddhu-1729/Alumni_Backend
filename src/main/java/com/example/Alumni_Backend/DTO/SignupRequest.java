@@ -11,8 +11,26 @@ public class SignupRequest {
     private String workingcompany;
     private String jobrole;
 
+    private String github;
+    private String linkedIn;
     private String fullname;
     private String branch;
+
+    public String getGithub() {
+        return github;
+    }
+
+    public void setGithub(String github) {
+        this.github = github;
+    }
+
+    public String getLinkedIn() {
+        return linkedIn;
+    }
+
+    public void setLinkedIn(String linkedIn) {
+        this.linkedIn = linkedIn;
+    }
 
     public String getBranch() {
         return branch;
