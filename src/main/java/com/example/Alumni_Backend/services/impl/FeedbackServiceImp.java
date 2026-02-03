@@ -2,14 +2,15 @@ package com.example.Alumni_Backend.services.impl;
 
 import com.example.Alumni_Backend.DTO.FeedBackDTO;
 import com.example.Alumni_Backend.models.Feedback;
-import com.example.Alumni_Backend.repository.FeedbaackRepo;
+import com.example.Alumni_Backend.repository.FeedbackRepo;
+import com.example.Alumni_Backend.services.FeedBackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FeedbackService {
+public class FeedbackServiceImp implements FeedBackService {
     @Autowired
-    private FeedbaackRepo feedbackRepo;
+    private FeedbackRepo feedbackRepo;
 
     public Feedback submitFeedBack(FeedBackDTO feedBackDTO){
         Feedback feedback=new Feedback();

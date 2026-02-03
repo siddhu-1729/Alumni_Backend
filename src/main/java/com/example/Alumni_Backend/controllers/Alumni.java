@@ -2,10 +2,13 @@ package com.example.Alumni_Backend.controllers;
 
 
 import com.example.Alumni_Backend.DTO.ArticleRequest;
+import com.example.Alumni_Backend.DTO.FeedBackDTO;
 import com.example.Alumni_Backend.DTO.JobRequest;
+import com.example.Alumni_Backend.models.Feedback;
 import com.example.Alumni_Backend.models.Jobs;
 import com.example.Alumni_Backend.models.SuccessStories;
 import com.example.Alumni_Backend.models.User;
+import com.example.Alumni_Backend.services.FeedBackService;
 import com.example.Alumni_Backend.services.JOBService;
 import com.example.Alumni_Backend.services.Profiles;
 import com.example.Alumni_Backend.services.UserService;
@@ -50,5 +53,12 @@ public class Alumni {
     @GetMapping("/getStory")
     public List<SuccessStories> getStory(){
         return userService.getStories();
+    }
+
+    @Autowired
+    private FeedBackService feedBackService;
+    @PostMapping("/submit_feedback")
+    public Feedback submit(@RequestBody FeedBackDTO feedBackDTO){
+        return feedBackService.submitFeedBack(feedBackDTO);
     }
 }

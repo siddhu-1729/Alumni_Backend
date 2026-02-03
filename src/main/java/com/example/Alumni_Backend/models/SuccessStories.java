@@ -3,13 +3,15 @@ package com.example.Alumni_Backend.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "articles")
 public class SuccessStories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String tiltle;
+    @Column(name = "tiltle")
+    private String title;
     @Column(length = 10000)
     private String content;
     private LocalDateTime createdAt= LocalDateTime.now();
@@ -31,12 +33,12 @@ public class SuccessStories {
         return createdAt;
     }
 
-    public String getTiltle() {
-        return tiltle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTiltle(String tiltle) {
-        this.tiltle = tiltle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {

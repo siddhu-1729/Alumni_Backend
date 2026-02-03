@@ -64,6 +64,7 @@ public class UserServiceImp implements UserService {
         successStories.setAuthor(articleRequest.getAuthor());
         successStories.setContent(articleRequest.getContent());
         successStories.setCreatedAt(articleRequest.getTime());
+        successStories.setTitle(articleRequest.getTitle());
        return articles.save(successStories);
     }
     public User getById(Long id){
