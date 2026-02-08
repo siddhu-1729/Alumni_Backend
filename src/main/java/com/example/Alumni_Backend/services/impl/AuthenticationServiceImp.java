@@ -88,6 +88,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
         user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
         user.setRole(Role.ALUMNI);
         user.setBranch(signupRequest.getBranch());
+        user.setFullname(signupRequest.getFullname());
         return userRepo.save(user);
     }
 

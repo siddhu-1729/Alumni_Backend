@@ -42,7 +42,7 @@ public class Alumni {
     }
 
     @GetMapping("/data")
-    public UserDetails get(@PathVariable String username){
+    public UserDetails get(@RequestBody String username){
 
         return userService.userDetailsService().loadUserByUsername(username);
     }
