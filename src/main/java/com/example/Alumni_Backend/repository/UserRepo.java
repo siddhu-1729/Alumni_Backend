@@ -15,4 +15,5 @@ public interface UserRepo extends JpaRepository<User,Long> {
     @Query("select u.email from User u")   //JPQL Java-persistent Query language. Used in JPA/Hibernate for querying
     //data from Entity(Java classes) and objects
     List<String> findAllEmails();
+    Optional<User> findByEmail(String email);
 }
