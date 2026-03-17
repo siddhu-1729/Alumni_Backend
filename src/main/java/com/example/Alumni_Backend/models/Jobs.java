@@ -17,7 +17,7 @@ public class Jobs {
     private String jobtype;
     private String salary_range;
     private String jobdescription;
-    private String Responsibilities;
+    private String responsibilities;
     private String qualifications;
     private String benefits;
     private String requiredskills;
@@ -80,11 +80,11 @@ public class Jobs {
     }
 
     public String getResponsibilities() {
-        return Responsibilities;
+        return responsibilities;
     }
 
     public void setResponsibilities(String responsibilities) {
-        Responsibilities = responsibilities;
+        this.responsibilities = responsibilities;
     }
 
     public String getQualifications() {

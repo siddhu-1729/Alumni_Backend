@@ -20,7 +20,7 @@ public class JobsController {
         return jobService.addJob(jobRequest);
     }
 
-    @GetMapping({"/alumni/jobs" ,"/student/internships"})
+    @GetMapping({"/alumni/jobs" ,"/student/internships","/staff/jobs"})
     public List<Jobs> findallJobs(){
         return jobService.getJobsData();
     }
