@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 //File to handle the events in the application
 
@@ -23,9 +22,12 @@ public class EventServiceImpl implements EventService {
 
     public Events addEvent(EventRequest eventRequest){
         Events event=new Events();
-        event.setEventName(eventRequest.getEventname());
-        event.setEventDescription(eventRequest.getDescription());
+        event.setEventname(eventRequest.getEventname());
+        event.setDescription(eventRequest.getDescription());
         event.setImage(eventRequest.getImage());
+        event.setEventtype(event.getEventtype());
+        event.setTime(eventRequest.getTime());
+        event.setLocation(event.getLocation());
        return eventRepo.save(event);
     }
 

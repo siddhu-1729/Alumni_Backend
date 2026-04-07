@@ -1,8 +1,6 @@
 package com.example.Alumni_Backend.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -14,14 +12,41 @@ public class Events {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String EventName;
+    private String eventname;
+    private String eventtype;
 
-    private String EventDescription;
+    private String date;
+
+    private String description;
 
     private byte[] image;
 
     private LocalDateTime time;
+    private String location;
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getEventtype() {
+        return eventtype;
+    }
+
+    public void setEventtype(String eventtype) {
+        this.eventtype = eventtype;
+    }
     public Long getId() {
         return id;
     }
@@ -30,20 +55,20 @@ public class Events {
         this.id = id;
     }
 
-    public String getEventName() {
-        return EventName;
+    public String getEventname() {
+        return eventname;
     }
 
-    public void setEventName(String eventName) {
-        EventName = eventName;
+    public void setEventname(String eventname) {
+        this.eventname = eventname;
     }
 
-    public String getEventDescription() {
-        return EventDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEventDescription(String eventDescription) {
-        EventDescription = eventDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public byte[] getImage() {

@@ -4,6 +4,7 @@ import com.example.Alumni_Backend.DTO.JWTAuthenticationResponse;
 import com.example.Alumni_Backend.DTO.RefreshTokenRequest;
 import com.example.Alumni_Backend.DTO.SigninRequest;
 import com.example.Alumni_Backend.DTO.SignupRequest;
+import com.example.Alumni_Backend.models.Notification;
 import com.example.Alumni_Backend.models.Role;
 import com.example.Alumni_Backend.models.User;
 import com.example.Alumni_Backend.repository.UserRepo;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
@@ -32,6 +34,8 @@ public class AuthenticationServiceImp implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     private final JWTService jwtService;
+
+    private SimpMessagingTemplate simpMessagingTemplate;
 
     public AuthenticationServiceImp(UserRepo userRepo, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JWTService jwtService) {
         this.userRepo = userRepo;
@@ -53,7 +57,10 @@ public class AuthenticationServiceImp implements AuthenticationService {
        user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
        user.setRole(Role.STAFF);
        user.setBranch(signupRequest.getBranch());
-      return userRepo.save(user);
+      user=userRepo.save(user);
+      Notification notification = new Notification("New Staff member has been registered: "+signupRequest.getFullname());
+      simpMessagingTemplate.convertAndSend("/topic/notifications",notification);
+      return user;
     }
 
     public User studentsignup(SignupRequest signupRequest){
@@ -72,7 +79,11 @@ public class AuthenticationServiceImp implements AuthenticationService {
         user.setFullname(signupRequest.getFullname());
         user.setLinkedIn(signupRequest.getLinkedIn());
         user.setGithub(signupRequest.getGithub());
-        return userRepo.save(user);
+        user=userRepo.save(user);
+
+        Notification notification = new Notification("New student has registered: "+signupRequest.getFullname());
+        simpMessagingTemplate.convertAndSend("/topic/notifications",notification);
+        return user;
     }
 
     public User alumnisignup(SignupRequest signupRequest){
@@ -89,7 +100,14 @@ public class AuthenticationServiceImp implements AuthenticationService {
         user.setRole(Role.ALUMNI);
         user.setBranch(signupRequest.getBranch());
         user.setFullname(signupRequest.getFullname());
-        return userRepo.save(user);
+        //Save to DB
+        user=userRepo.save(user);
+//      Notifying about the registered candidate via socket message
+        Notification notification=new Notification("New Alumni has registered:"+signupRequest.getFullname());
+        simpMessagingTemplate.convertAndSend("/topic/notifications",notification);//sends the content to /notifiaction where ever the client has subscribed
+        return user;
+
+
     }
 
     public JWTAuthenticationResponse signin(SigninRequest signinRequest){
