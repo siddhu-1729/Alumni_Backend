@@ -46,6 +46,15 @@ public class User implements UserDetails {
     private String linkedIn;
 
     private Role role;
+  private String location;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public String getGithub() {
         return github;

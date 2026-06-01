@@ -1,86 +1,52 @@
 package com.example.Alumni_Backend.services.MessagingServices;
 
+
+import com.example.Alumni_Backend.DTO.MessageRequest;
+import com.example.Alumni_Backend.DTO.MessageResponse;
 import com.example.Alumni_Backend.models.Messaging.Message;
-import com.example.Alumni_Backend.models.Role;
-import com.example.Alumni_Backend.models.User;
 import com.example.Alumni_Backend.repository.MessagingRepos.MessageRepo;
-import com.example.Alumni_Backend.repository.UserRepo;
 import com.example.Alumni_Backend.services.MessageService;
-import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 
 @Service
-@Transactional
+
 public class MessageServiceImp implements MessageService {
 
     private final MessageRepo messageRepository;
-    private final UserRepo userRepository;
 
-    public MessageServiceImp(MessageRepo messageRepository, UserRepo userRepository) {
+
+    public MessageServiceImp(MessageRepo messageRepository) {
         this.messageRepository = messageRepository;
-        this.userRepository = userRepository;
     }
 
-    //  Save message
-    public Message save(User sender, User receiver, String content) {
-
-        // Optional: Role validation
-        validateMessagingPermission(sender, receiver);
+    public MessageResponse saveAndBuild(
+            String sender,
+            MessageRequest request) {
 
         Message message = new Message();
+
         message.setSender(sender);
-        message.setReceiver(receiver);
-        message.setContent(content);
+        message.setReceiver(request.getReceiver());
+        message.setContent(request.getContent());
         message.setTimestamp(LocalDateTime.now());
-        message.setReadStatus(false);
 
-        return messageRepository.save(message);
+        messageRepository.save(message);
+
+        return map(message);
     }
 
-    //  Get full conversation
-    public List<Message> getConversation(String email1, String email2) {
+    private MessageResponse map(Message message){
+        MessageResponse response=new MessageResponse();
 
-        User user1 = userRepository.findByEmail(email1)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        response.setContent(message.getContent());
+        response.setReceiver(message.getReceiver());
+        response.setSender(message.getSender());
+        response.setTimestamp(message.getTimestamp());
 
-        User user2 = userRepository.findByEmail(email2)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        return messageRepository.findConversation(
-                user1.getId(),
-                user2.getId()
-        );
-    }
-
-    // Get unread messages
-    public List<Message> getUnreadMessages(String receiverEmail) {
-
-        User receiver = userRepository.findByEmail(receiverEmail)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        return messageRepository.findByReceiverAndReadStatusFalse(receiver);
-    }
-
-    // Mark messages as read
-    public void markAsRead(Long messageId) {
-
-        Message message = messageRepository.findById(messageId)
-                .orElseThrow(() -> new RuntimeException("Message not found"));
-
-        message.setReadStatus(true);
-    }
-
-    //  Role-based restriction (Optional)
-    private void validateMessagingPermission(User sender, User receiver) {
-
-        if (sender.getRole() == Role.STUDENT &&
-                receiver.getRole() == Role.STUDENT) {
-            throw new RuntimeException("Students cannot message students");
-        }
-
-        // You can extend rules here
+        return response;
     }
 }

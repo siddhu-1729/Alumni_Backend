@@ -10,6 +10,7 @@ import com.example.Alumni_Backend.services.FeedBackService;
 import com.example.Alumni_Backend.services.Profiles;
 import com.example.Alumni_Backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -61,5 +62,11 @@ public class Staff {
     @GetMapping("/get_suggestions")
     public List<Suggestions> getSuggestions(){
        return feedBackService.getSuggestions();
+    }
+
+    @PutMapping("/{id}/update")
+    ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user){
+        User updatedUser=userService.updateUser(id,user);
+        return ResponseEntity.ok(updatedUser);
     }
 }

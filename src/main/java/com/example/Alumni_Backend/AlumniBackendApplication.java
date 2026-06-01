@@ -26,7 +26,6 @@ public class AlumniBackendApplication implements CommandLineRunner {
 		if (admin == null) {
 
 			User user= new User();
-
 			user.setUsername("admin");
 			user.setRole(Role.ADMIN);
 			user.setPassword(new BCryptPasswordEncoder().encode("admin"));

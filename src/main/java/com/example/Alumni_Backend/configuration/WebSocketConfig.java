@@ -13,13 +13,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config){
-        config.enableSimpleBroker("/topic");//where messages go
+        config.enableSimpleBroker("/topic" ,"/queue");//where messages go
         config.setApplicationDestinationPrefixes("/app");
+        config.setUserDestinationPrefix("/user");
     }
      @Override
     public void registerStompEndpoints(StompEndpointRegistry registry){
          registry.addEndpoint("/ws")
-                 .setAllowedOrigins("http://localhost:5173")
+                 .setAllowedOrigins("*")
                  .withSockJS(); //fallback support
     }
 }

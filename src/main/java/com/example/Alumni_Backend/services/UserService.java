@@ -22,4 +22,6 @@ public interface UserService{
      User getById(Long id);
     SuccessStories successStories(ArticleRequest articleRequest);
     List<SuccessStories> getStories();
+
+    User updateUser(Long id,User user);
 }

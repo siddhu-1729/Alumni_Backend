@@ -61,4 +61,10 @@ public class Alumni {
     public Feedback submit(@RequestBody FeedBackDTO feedBackDTO){
         return feedBackService.submitFeedBack(feedBackDTO);
     }
+
+    @PutMapping("/{id}/update")
+     ResponseEntity<User> update(@PathVariable Long id,@RequestBody User user){
+        User updatedUser=userService.updateUser(id,user);
+        return ResponseEntity.ok(updatedUser);
+    }
 }

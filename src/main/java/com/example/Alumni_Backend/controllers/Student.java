@@ -12,6 +12,7 @@ import com.example.Alumni_Backend.services.FeedBackService;
 import com.example.Alumni_Backend.services.Profiles;
 import com.example.Alumni_Backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -76,4 +77,10 @@ public class Student {
 //   public List<Suggestions> getSuggestion(@PathVariable String email){
 //      return feedBackService.getSuggestion(email);
 //   }
+
+    @PutMapping("/{id}/update")
+    ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user){
+        User updatedUser=userService.updateUser(id,user);
+        return ResponseEntity.ok(updatedUser);
+    }
 }

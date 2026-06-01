@@ -74,4 +74,22 @@ public class UserServiceImp implements UserService {
     public List<SuccessStories> getStories(){
         return articles.findAll();
     }
+
+    public User updateUser(Long id,User user){
+        User existedUser=userRepo.findById(id).orElseThrow(()->new RuntimeException("User Not Found"));
+        existedUser.setFullname(user.getFullname());
+        existedUser.setGithub(user.getGithub());
+        existedUser.setLinkedIn(user.getLinkedIn());
+//        existedUser.setRole(user.getRole());
+        existedUser.setBranch(user.getBranch());
+        existedUser.setUsername(user.getUsername());
+        existedUser.setYearofpassing(user.getYearofpassing());
+        existedUser.setMobilenumber(user.getMobilenumber());
+        existedUser.setInterests(user.getInterests());
+        existedUser.setJobrole(user.getJobrole());
+        existedUser.setCollegeID(user.getCollegeID());
+        existedUser.setEmail(user.getEmail());
+        existedUser.setLocation(user.getLocation());
+        return userRepo.save(existedUser);
+    }
 }
