@@ -19,6 +19,7 @@ public class ChatController {
     @Autowired
     private MessageService messageService;
 
+    @SendTo("/topic/messages")
    @MessageMapping("/app/chat.send")
     public void sendMesaage(MessageRequest messageRequest, Principal principal){
           String sender= principal.getName();

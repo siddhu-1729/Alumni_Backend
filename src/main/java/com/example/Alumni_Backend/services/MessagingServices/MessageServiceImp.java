@@ -6,14 +6,13 @@ import com.example.Alumni_Backend.DTO.MessageResponse;
 import com.example.Alumni_Backend.models.Messaging.Message;
 import com.example.Alumni_Backend.repository.MessagingRepos.MessageRepo;
 import com.example.Alumni_Backend.services.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 
 @Service
-
 public class MessageServiceImp implements MessageService {
 
     private final MessageRepo messageRepository;

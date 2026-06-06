@@ -1,6 +1,5 @@
 package com.example.Alumni_Backend.models.Messaging;
 
-import com.example.Alumni_Backend.models.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
