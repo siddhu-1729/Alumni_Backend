@@ -6,8 +6,8 @@ import com.example.Alumni_Backend.models.User;
 public interface Profiles {
 //to get all profiles of the users from the database
 
-    public User studentProfileRequest(String username);
-    public User alumniProfileRequest(String username);
-    public User staffProfileRequest(String username);
-    public User adminProfileRequest(String username);
+     User studentProfileRequest(String username);
+     User alumniProfileRequest(String username);
+     User staffProfileRequest(String username);
+     User adminProfileRequest(String username);
 }

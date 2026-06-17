@@ -11,17 +11,17 @@ import java.util.List;
 @Repository
 public interface MessageRepo extends JpaRepository<Message,Long> {
     // Fetch full conversation between two users
-    @Query("""
-        SELECT m FROM Message m
-        WHERE (m.sender.id = :user1 AND m.receiver.id = :user2)
-           OR (m.sender.id = :user2 AND m.receiver.id = :user1)
-        ORDER BY m.timestamp ASC
-    """)
-    List<Message> findConversation(
-            @Param("user1") Long user1,
-            @Param("user2") Long user2
-    );
+//    @Query("""
+//        SELECT m FROM Message m
+//        WHERE (m.sender.id = :user1 AND m.receiver.id = :user2)
+//           OR (m.sender.id = :user2 AND m.receiver.id = :user1)
+//        ORDER BY m.timestamp ASC
+//    """)
+//    List<Message> findConversation(
+//            @Param("user1") Long user1,
+//            @Param("user2") Long user2
+//    );
 
     // Unread messages
-    List<Message> findByReceiverAndReadStatusFalse(User receiver);
+   // List<Message> findByReceiverAndReadStatusFalse(User receiver);
 }

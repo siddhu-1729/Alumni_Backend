@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 //File to handle the UserDetails and Users interactions such as articles posted and stories that has shared
 
@@ -91,5 +92,10 @@ public class UserServiceImp implements UserService {
         existedUser.setEmail(user.getEmail());
         existedUser.setLocation(user.getLocation());
         return userRepo.save(existedUser);
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userRepo.findByUsername(username);
     }
 }
