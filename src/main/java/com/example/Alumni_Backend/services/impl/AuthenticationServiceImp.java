@@ -4,7 +4,7 @@ import com.example.Alumni_Backend.DTO.JWTAuthenticationResponse;
 import com.example.Alumni_Backend.DTO.RefreshTokenRequest;
 import com.example.Alumni_Backend.DTO.SigninRequest;
 import com.example.Alumni_Backend.DTO.SignupRequest;
-import com.example.Alumni_Backend.models.Notification;
+import com.example.Alumni_Backend.models.Messaging.Notification;
 import com.example.Alumni_Backend.models.Role;
 import com.example.Alumni_Backend.models.User;
 import com.example.Alumni_Backend.repository.UserRepo;

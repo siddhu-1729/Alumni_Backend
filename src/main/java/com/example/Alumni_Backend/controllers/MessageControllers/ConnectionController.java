@@ -6,12 +6,13 @@ import com.example.Alumni_Backend.services.NotificationService;
 import com.example.Alumni_Backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.swing.text.html.Option;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -19,8 +20,7 @@ import java.util.Optional;
 @RequestMapping("/api/connections")
 public class ConnectionController {
 //SimpMessagingTemplate ---> sever-side sender for Websocket messaging through STOMP
-    @Autowired
-    private SimpMessagingTemplate simpMessagingTemplate;
+
     @Autowired
     private NotificationService notificationService;
     @Autowired
@@ -32,18 +32,15 @@ public class ConnectionController {
 // sends message to specified user through STOMP
    @PostMapping("{alumniId}")
     public ResponseEntity<String> connectWithAlumni(@PathVariable Long alumniId,Principal principal){
-       Optional<User> student=userService.findByUsername(principal.getName());
-        User alumni=userService.getById(alumniId);
+       if(principal==null){
+           return ResponseEntity.status(401).body("User not Authenticated");
+       }
 
-        // Handling the edge cases
-        if(student.isPresent()){
-            User user=student.get();
+     boolean sent=notificationService.notifyAlumni(principal.getName(),alumniId);
 
-            ConnectNotificationDto connectNotificationDto=new ConnectNotificationDto(user.getId(),
-                    user.getFullname(), user.getFullname() +"Sent you a connection request",
-                    "CONNECTION REQUEST");
-            notificationService.notifyAlumni(alumni.getUsername(),connectNotificationDto);
-        }
+       if(!sent){
+           return ResponseEntity.status(404).body("Student or Alumni not found");
+       }
 
        return ResponseEntity.ok("Connection Request Sent");
     }

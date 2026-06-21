@@ -10,7 +10,6 @@ import com.example.Alumni_Backend.repository.UserRepo;
 import com.example.Alumni_Backend.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,7 +34,7 @@ public class UserServiceImp implements UserService {
         return new UserDetailsService(){
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return userRepo.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("username not found"));
+                return userRepo.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not Found"));
             }
         };
     }
@@ -68,8 +67,8 @@ public class UserServiceImp implements UserService {
         successStories.setTitle(articleRequest.getTitle());
        return articles.save(successStories);
     }
-    public User getById(Long id){
-        return getById(id);
+    public Optional<User> getById(Long id){
+        return userRepo.findById(id);
     }
 
     public List<SuccessStories> getStories(){
@@ -77,11 +76,12 @@ public class UserServiceImp implements UserService {
     }
 
     public User updateUser(Long id,User user){
+//        No need to setRole() , it will be automatically settled while signing up
         User existedUser=userRepo.findById(id).orElseThrow(()->new RuntimeException("User Not Found"));
         existedUser.setFullname(user.getFullname());
         existedUser.setGithub(user.getGithub());
         existedUser.setLinkedIn(user.getLinkedIn());
-//        existedUser.setRole(user.getRole());
+
         existedUser.setBranch(user.getBranch());
         existedUser.setUsername(user.getUsername());
         existedUser.setYearofpassing(user.getYearofpassing());
