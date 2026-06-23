@@ -1,5 +1,6 @@
 package com.example.Alumni_Backend.configuration;
 
+import com.example.Alumni_Backend.configuration.WebsocketHandlers.CustomHandshakeHandler;
 import com.example.Alumni_Backend.services.JWTService;
 import com.example.Alumni_Backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
                 .setAllowedOrigins("http://localhost:5173")
+                .setHandshakeHandler(new CustomHandshakeHandler(jwtService,userService))
                 .withSockJS(); //fallback support
     }
 
@@ -69,8 +71,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                                                 userDetails.getAuthorities()
                                         );
                                 accessor.setUser(authentication);
+                            }else {
+                                System.out.println("JWT is Invalid");
                             }
                         }
+                    }else {
+                        System.out.println("Authorization header missing in STOMP CONNECT");
                     }
                 }
 

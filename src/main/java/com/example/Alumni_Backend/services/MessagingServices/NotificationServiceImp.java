@@ -44,9 +44,9 @@ public class NotificationServiceImp implements NotificationService {
         System.out.println(alumni.getUsername()+":"+alumniConnected);
 
          ConnectNotificationDto connectNotificationDto=new ConnectNotificationDto(student.getId(), student.getFullname(), student.getFullname()+"Sent you a connection request","Connection_Request");
-        simpMessagingTemplate.convertAndSendToUser(alumni.getUsername(),"/queue/notifications",connectNotificationDto);
+//        simpMessagingTemplate.convertAndSendToUser(alumni.getUsername(),"/queue/notifications",connectNotificationDto);
         //convertAndSend works for broadcasts messages and opened socket connection. It wouldn't be a user specific ,authenticated connected communication
-        // simpMessagingTemplate.convertAndSend("/topic/test",connectNotificationDto);
+         simpMessagingTemplate.convertAndSend("/topic/test",connectNotificationDto);
         System.out.println("Alumni has been notified");
         return true;
     }
