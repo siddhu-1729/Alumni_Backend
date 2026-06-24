@@ -1,6 +1,7 @@
 package com.example.Alumni_Backend.services.MessagingServices;
 
 import com.example.Alumni_Backend.DTO.ConnectNotificationDto;
+import com.example.Alumni_Backend.DTO.MessageDTO;
 import com.example.Alumni_Backend.models.User;
 import com.example.Alumni_Backend.services.NotificationService;
 
@@ -25,7 +26,8 @@ public class NotificationServiceImp implements NotificationService {
         this.userSocketTrackerService = userSocketTrackerService;
     }
 
-//Notifications to alumni connections
+//Notifications to alumni connections( When a student wanted to Connect to alumin, they can hit the connect button
+// from client , then immediately alumni will get notified about the Connection)
     public boolean notifyAlumni(String Studentname,Long alumniId){
         Optional<User> studentOpt=userService.findByUsername(Studentname);
         Optional<User> alumniOpt=userService.getById(alumniId);
@@ -50,5 +52,11 @@ public class NotificationServiceImp implements NotificationService {
         System.out.println("Alumni has been notified");
         return true;
     }
+
+//  Global chat for students to have a common communication
+//    public boolean sendMessage(MessageDTO messageDTO){
+//        simpMessagingTemplate.convertAndSend("/topic/global-chat", messageDTO);
+//        return true;
+//    }
 
 }
