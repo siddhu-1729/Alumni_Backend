@@ -16,6 +16,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+//imports for profile picture upload
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.HttpEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,11 +45,6 @@ public class Student {
     @GetMapping("/all")
     public List<User> hello(){
         return userService.getStudent();
-    }
-
-    @GetMapping("/data")
-    public UserDetails get(@PathVariable String username){
-        return userService.userDetailsService().loadUserByUsername(username);
     }
 
 //    @GetMapping("/profile")
@@ -82,5 +83,53 @@ public class Student {
     ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user){
         User updatedUser=userService.updateUser(id,user);
         return ResponseEntity.ok(updatedUser);
+    }
+
+//Method to upload profile picture (Converting into Bytes and storing in DB)
+    @PostMapping("/profile-picture")
+    public ResponseEntity<String> uploadProfilePicture(
+            Authentication authentication,
+            @RequestParam("file") MultipartFile file) {
+
+        String username = authentication.getName();
+
+        User user = profiles.studentProfileRequest(username);
+
+        userService.uploadProfilePicture(user.getId(), file);
+
+        return ResponseEntity.ok("Profile picture uploaded successfully.");
+    }
+
+//Getting profile picture(reconstructing images from bytes stored in DB)
+    @GetMapping("/profile-picture")
+    public ResponseEntity<byte[]> getProfilePicture(Authentication authentication) {
+
+        String username = authentication.getName();
+
+        User user = profiles.studentProfileRequest(username);
+
+        byte[] image = userService.getProfilePicture(user.getId());
+
+        if (image == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        String type = userService.getProfilePictureType(user.getId());
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_TYPE, type)
+                .body(image);
+    }
+//Deleting profile picture (marks the space as null)
+    @DeleteMapping("/profile-picture")
+    public ResponseEntity<String> deleteProfilePicture(Authentication authentication) {
+
+        String username = authentication.getName();
+
+        User user = profiles.studentProfileRequest(username);
+
+        userService.deleteProfilePicture(user.getId());
+
+        return ResponseEntity.ok("Profile picture removed.");
     }
 }

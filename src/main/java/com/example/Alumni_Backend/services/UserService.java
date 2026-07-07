@@ -4,7 +4,7 @@ import com.example.Alumni_Backend.DTO.ArticleRequest;
 import com.example.Alumni_Backend.models.SuccessStories;
 import com.example.Alumni_Backend.models.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,4 +26,13 @@ public interface UserService{
     User updateUser(Long id,User user);
 
     Optional<User> findByUsername(String username);
+
+    //Profile picture upload and store it in Postgres DB for Version.1
+    void uploadProfilePicture(Long userId, MultipartFile file);
+
+    byte[] getProfilePicture(Long userId);
+
+    String getProfilePictureType(Long userId);
+
+    void deleteProfilePicture(Long userId);
 }

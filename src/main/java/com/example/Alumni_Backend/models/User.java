@@ -11,7 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Data
+//@Data
+// automatically configures getters and setters(But i don't understand why this is not working here..
+//  will see about it later)
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -45,8 +47,22 @@ public class User implements UserDetails {
 
     private String linkedIn;
 
+//    @Enumerated(EnumType.STRING)
     private Role role;
   private String location;
+
+
+    @Column(name = "profile_picture", columnDefinition = "bytea")
+    private byte[] profilePicture;
+
+    @Column(name = "profile_picture_name")
+    private String profilePictureName;
+
+    @Column(name = "profile_picture_type")
+    private String profilePictureType;
+
+    @Column(name = "profile_picture_size")
+    private Long profilePictureSize;
 
     public String getLocation() {
         return location;
@@ -176,6 +192,38 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public String getProfilePictureName() {
+        return profilePictureName;
+    }
+
+    public void setProfilePictureName(String profilePictureName) {
+        this.profilePictureName = profilePictureName;
+    }
+
+    public String getProfilePictureType() {
+        return profilePictureType;
+    }
+
+    public void setProfilePictureType(String profilePictureType) {
+        this.profilePictureType = profilePictureType;
+    }
+
+    public Long getProfilePictureSize() {
+        return profilePictureSize;
+    }
+
+    public void setProfilePictureSize(Long profilePictureSize) {
+        this.profilePictureSize = profilePictureSize;
     }
 
     @Override
