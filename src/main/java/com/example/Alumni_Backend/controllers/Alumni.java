@@ -13,10 +13,12 @@ import com.example.Alumni_Backend.services.JOBService;
 import com.example.Alumni_Backend.services.Profiles;
 import com.example.Alumni_Backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -67,4 +69,38 @@ public class Alumni {
         User updatedUser=userService.updateUser(id,user);
         return ResponseEntity.ok(updatedUser);
     }
+//    uploading profile picture to DB
+    @PostMapping("/profile-picture")
+    public ResponseEntity<String> uploadProfile(Authentication authentication, @RequestParam("file")MultipartFile multipartFile){
+        String name= authentication.getName();
+        User user=profiles.alumniProfileRequest(name);
+
+        userService.uploadProfilePicture(user.getId(),multipartFile);
+
+      return ResponseEntity.ok("Profile picture uploaded successfully");
+    }
+
+// loading profile picture from DB
+    @GetMapping("/profile-picture")
+   public ResponseEntity<byte[]> getProfilePicture(Authentication authentication){
+        String name=authentication.getName();
+
+        User user=profiles.alumniProfileRequest(name);
+        byte[] image= userService.getProfilePicture(user.getId());
+
+        if(image==null){
+            return ResponseEntity.notFound().build();
+        }
+        String type= userService.getProfilePictureType(user.getId());
+//        based on the type it will send the image to client.
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE,type).body(image);
+   }
+
+   @DeleteMapping("/profile-picture")
+   public ResponseEntity<String> deleteprofile(Authentication authentication){
+        String name = authentication.getName();
+        User user=profiles.alumniProfileRequest(name);
+        userService.deleteProfilePicture(user.getId());
+        return ResponseEntity.ok("Profile picture is successfully deleted");
+   }
 }
