@@ -35,13 +35,14 @@ public class AuthenticationServiceImp implements AuthenticationService {
 
     private final JWTService jwtService;
 
-    private SimpMessagingTemplate simpMessagingTemplate;
-
-    public AuthenticationServiceImp(UserRepo userRepo, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JWTService jwtService) {
+    private final SimpMessagingTemplate simpMessagingTemplate;
+    public AuthenticationServiceImp(UserRepo userRepo, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JWTService jwtService,SimpMessagingTemplate simpMessagingTemplate) {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
+        this.simpMessagingTemplate = simpMessagingTemplate;
+
     }
 
     public User staffsignup(SignupRequest signupRequest){

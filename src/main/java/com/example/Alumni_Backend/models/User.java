@@ -1,7 +1,6 @@
 package com.example.Alumni_Backend.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,7 +28,7 @@ public class User implements UserDetails {
 
     private String collegeID;
 
-    private long mobilenumber;
+    private String mobilenumber;  //converted long into string ..if the user not entered then empty space is not converted into long so thats y we use string
 
     private String interests;
 
@@ -146,11 +145,11 @@ public class User implements UserDetails {
         this.collegeID = collegeID;
     }
 
-    public long getMobilenumber() {
+    public String getMobilenumber() {
         return mobilenumber;
     }
 
-    public void setMobilenumber(long mobilenumber) {
+    public void setMobilenumber(String mobilenumber) {
         this.mobilenumber = mobilenumber;
     }
 
