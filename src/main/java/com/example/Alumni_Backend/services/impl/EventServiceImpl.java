@@ -24,7 +24,7 @@ public class EventServiceImpl implements EventService {
         Events event=new Events();
         event.setEventname(eventRequest.getEventname());
         event.setDescription(eventRequest.getDescription());
-        event.setImage(eventRequest.getImage());
+//        event.setImage(eventRequest.getImage());
         event.setEventtype(event.getEventtype());
         event.setTime(eventRequest.getTime());
         event.setLocation(event.getLocation());

@@ -19,4 +19,6 @@ public interface UserRepo extends JpaRepository<User,Long> {
     Optional<User> findByEmail(String email);
 
 //      Optional<User> getById(Long id);
+    @Query("SELECT u.role,count(u) from User u group by u.role")
+    List<Object[]> countUserByRole();
 }

@@ -35,4 +35,6 @@ public interface UserService{
     String getProfilePictureType(Long userId);
 
     void deleteProfilePicture(Long userId);
+
+    long[] getCount();
 }

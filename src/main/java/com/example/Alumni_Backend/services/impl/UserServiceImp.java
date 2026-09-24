@@ -163,4 +163,16 @@ public class UserServiceImp implements UserService {
 
         userRepo.save(user);
     }
+
+    public long[] getCount(){
+        long[] counts=new long[Role.values().length];
+        for(Object[] row:userRepo.countUserByRole()){
+            Role role=(Role) row[0];
+            counts[role.ordinal()]=(Long)row[1];
+        }
+        for(long val:counts){
+            System.out.print(val+" ");
+        }
+        return counts;
+    }
 }

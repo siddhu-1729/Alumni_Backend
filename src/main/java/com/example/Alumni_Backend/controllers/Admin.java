@@ -78,5 +78,8 @@ public class Admin {
     public ResponseEntity<User> addStudent(@RequestBody SignupRequest signupRequest){
         return authentications.studentsignup(signupRequest);
     }
-
+    @GetMapping("/getcount")
+    public long[] getCount(){
+        return userService.getCount();
+    }
 }

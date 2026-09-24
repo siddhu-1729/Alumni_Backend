@@ -24,7 +24,6 @@ public class AlumniBackendApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		List<User> admin = userRepo.findByRole(Role.ADMIN);
 		if (admin == null) {
-
 			User user= new User();
 			user.setUsername("admin");
 			user.setRole(Role.ADMIN);
