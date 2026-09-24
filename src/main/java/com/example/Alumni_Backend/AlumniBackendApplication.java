@@ -23,10 +23,11 @@ public class AlumniBackendApplication implements CommandLineRunner {
     @Override
 	public void run(String... args) throws Exception {
 		List<User> admin = userRepo.findByRole(Role.ADMIN);
-		if (admin == null) {
+		if (admin.isEmpty()) {
 			User user= new User();
 			user.setUsername("admin");
 			user.setRole(Role.ADMIN);
+			user.setMobilenumber("7396014593");
 			user.setPassword(new BCryptPasswordEncoder().encode("admin"));
             user.setWorkingcompany("SRKR Engineering College(Autonomous)");
 			userRepo.save(user);
