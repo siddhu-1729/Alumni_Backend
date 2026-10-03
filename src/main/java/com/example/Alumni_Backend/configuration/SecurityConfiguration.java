@@ -59,7 +59,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(request->request.requestMatchers("/api/v1/auth/**")
                         .permitAll()
                         .requestMatchers("/ws/**").permitAll()
-                        .requestMatchers("/actuator/health").permitAll()
+                        .requestMatchers("/actuator/health","/actuator/health/**").permitAll()
                         .requestMatchers("/api/v1/admin").hasAuthority(Role.ADMIN.name())
                         .requestMatchers("/api/v1/alumni").hasAuthority(Role.ALUMNI.name())
                         .requestMatchers("/api/v1/staff").hasAuthority(Role.STAFF.name())
