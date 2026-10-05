@@ -37,7 +37,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
-                .setAllowedOrigins("http://localhost:5173","https://alumniplatform-omega.vercel.app")
+                .setAllowedOrigins("http://localhost:5173","https://alumni-application-gray.vercel.app")
                 .setHandshakeHandler(new CustomHandshakeHandler(jwtService,userService))
                 .withSockJS(); //fallback support
     }
